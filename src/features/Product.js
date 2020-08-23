@@ -5,7 +5,7 @@ import { fetchProducts } from './productSlice';
 import { addProductToCart } from './cartSlice';
 import { currency } from '../currency';
 
-class ProductList extends Component {
+class Product extends Component {
     constructor(props){
         super(props);
 
@@ -55,7 +55,7 @@ export default connect(
         products : state.product.products
     }),
     { fetchProducts, addProductToCart } // 사용해서 연결할 actions 
-)(ProductList);
+)(Product);
 
 //리스트 
 //카트 추가 버튼 o
