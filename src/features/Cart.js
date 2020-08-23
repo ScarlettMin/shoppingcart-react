@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './Cart.css';
 import {connect} from 'react-redux';
 import { fetchProducts } from './productSlice';
 import { addProductToCart, checkout, cartTotal } from './cartSlice';
@@ -16,12 +17,16 @@ class ShoppingCart extends Component {
         return (
             <div>
                 <p>Picked Items</p>
-                <ul>
+                <div>
                     {
                         this.props.cartItem.map(m => 
-                        <li key={m.id}>{m.title} - {currency(m.price)} - {m.quantity}</li>)
+                        <div class="cartItem" key={m.id}>
+                            <span>{m.title}</span>
+                            <span>{currency(m.price)}</span>
+                            <span>{m.quantity}</span>
+                        </div>)
                     }
-                </ul>
+                </div>
                 <p>total : <span>{currency(this.props.cartTotal)}</span></p>
                 <button onClick={()=>{this.props.checkout(this.props.cartItem)}}>Check Out</button>
                 <p>{ this.props.checkoutStatus && this.props.checkoutStatus}</p>

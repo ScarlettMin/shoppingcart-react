@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './Product.css'
 import { connect } from 'react-redux';
 import { fetchProducts } from './productSlice';
 import { addProductToCart } from './cartSlice';
@@ -32,14 +33,17 @@ class ProductList extends Component {
                 {
                     this.state.isLoading && <img src='https://i.imgur.com/JfPpwOA.gif'  /> 
                 }
-                <ul>
+                <div>
                 {
                     this.props.products.map(m => 
-                        <li key={m.id}> {m.title} - {currency(m.price)} - {m.inventory} 
-                        <button disabled={m.inventory < 1 ? true :false} onClick={()=>{this.props.addProductToCart(this.props.cartItem, m)}}>Add to Cart</button>
-                    </li>)
+                        <div className="product" key={m.id}> 
+                            <span>{m.title}</span> 
+                            <span>{currency(m.price)}</span>
+                            <span>{m.inventory} </span>
+                            <button disabled={m.inventory < 1 ? true :false} onClick={()=>{this.props.addProductToCart(this.props.cartItem, m)}}>Add to Cart</button>
+                        </div>)
                  }
-                </ul>
+                </div>
             </div>
         )
     }
