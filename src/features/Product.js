@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchProducts } from './productSlice';
 import { addProductToCart } from './cartSlice';
+import { currency } from '../currency';
 
 class ProductList extends Component {
     constructor(props){
@@ -34,7 +35,7 @@ class ProductList extends Component {
                 <ul>
                 {
                     this.props.products.map(m => 
-                        <li key={m.id}> {m.title} - {m.price} - {m.inventory} 
+                        <li key={m.id}> {m.title} - {currency(m.price)} - {m.inventory} 
                         <button disabled={m.inventory < 1 ? true :false} onClick={()=>{this.props.addProductToCart(this.props.cartItem, m)}}>Add to Cart</button>
                     </li>)
                  }

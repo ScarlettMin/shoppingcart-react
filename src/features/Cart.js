@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import { fetchProducts } from './productSlice';
-import { addProductToCart, cartTotal } from './cartSlice';
+import { addProductToCart, checkout, cartTotal } from './cartSlice';
 import { currency } from '../currency';
 
 class ShoppingCart extends Component {
@@ -19,10 +19,12 @@ class ShoppingCart extends Component {
                 <ul>
                     {
                         this.props.cartItem.map(m => 
-                        <li>{m.title} - {m.price} - {m.quantity}</li>)
+                        <li key={m.id}>{m.title} - {currency(m.price)} - {m.quantity}</li>)
                     }
                 </ul>
                 <p>total : <span>{currency(this.props.cartTotal)}</span></p>
+                <button onClick={()=>{this.props.checkout(this.props.cartItem)}}>Check Out</button>
+                <p>{ this.props.checkoutStatus && this.props.checkoutStatus}</p>
             </div>
         )
     }
@@ -32,13 +34,14 @@ export default connect(
     (state)=> ({
         cartItem : state.cart.items,
         products : state.product.products,
-        cartTotal : cartTotal(state)
+        cartTotal : cartTotal(state),
+        checkoutStatus : state.cart.checkoutStatus
     }),
     
     /* ({cart})=> ({
         cartItem : cart.items
     }), */
-    { fetchProducts, addProductToCart } // 사용해서 연결할 actions 
+    { fetchProducts, addProductToCart, checkout } // 사용해서 연결할 actions 
 )(ShoppingCart);
 
 //카트 리스트 노출 ㅇ
