@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import shop from '../../api/shop'
+import shop from '../api/shop'
 
 export const productSlice = createSlice({
     name: 'product',
@@ -10,11 +10,14 @@ export const productSlice = createSlice({
         //불러낸 값을 저장했다. 
         setproduct: (state, action) => {
             state.products = action.payload
+        },
+        decrementProductInventory:(state, action) => {
+            state.products.find(i => i.id === action.payload.id).inventory--
         }
     }
 })
 
-export const { setproduct } = productSlice.actions; 
+export const { setproduct, decrementProductInventory } = productSlice.actions; 
 //actions,  api갔다오는거
 export const fetchProducts = () => dispatch => {
     return new Promise((resolve, reject)=>{

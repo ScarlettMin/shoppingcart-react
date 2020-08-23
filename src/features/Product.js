@@ -34,8 +34,8 @@ class ProductList extends Component {
                 <ul>
                 {
                     this.props.products.map(m => 
-                        <li key={m.id}> {m.title} 
-                        <button onClick={()=>{this.props.addProductToCart(this.props.cartItem, m)}}>Add to Cart</button>
+                        <li key={m.id}> {m.title} - {m.price} - {m.inventory} 
+                        <button disabled={m.inventory < 1 ? true :false} onClick={()=>{this.props.addProductToCart(this.props.cartItem, m)}}>Add to Cart</button>
                     </li>)
                  }
                 </ul>
@@ -53,4 +53,6 @@ export default connect(
 )(ProductList);
 
 //리스트 
-//카트 추가 버튼, 액션 
+//카트 추가 버튼 o
+//재고량 줄이기 o
+//

@@ -1,14 +1,14 @@
   
 import React from 'react';
-import ProductList from './features/product/ProductList';
-import ShoppingCart from './features/product/ShoppingCart';
+import Product from './features/Product';
+import Cart from './features/Cart';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-      <ProductList></ProductList>
-      <ShoppingCart></ShoppingCart>
+      <Product></Product>
+      <Cart></Cart>
     </div>
   );
 }

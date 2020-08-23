@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import { fetchProducts } from './productSlice';
-import { addProductToCart } from './cartSlice';
+import { addProductToCart, cartTotal } from './cartSlice';
+import { currency } from '../currency';
 
 class ShoppingCart extends Component {
     constructor(props){
@@ -18,9 +19,10 @@ class ShoppingCart extends Component {
                 <ul>
                     {
                         this.props.cartItem.map(m => 
-                            <li>{m.id} - {m.quantity}</li>)
+                        <li>{m.title} - {m.price} - {m.quantity}</li>)
                     }
                 </ul>
+                <p>total : <span>{currency(this.props.cartTotal)}</span></p>
             </div>
         )
     }
@@ -29,7 +31,8 @@ class ShoppingCart extends Component {
 export default connect(
     (state)=> ({
         cartItem : state.cart.items,
-        products : state.product.products
+        products : state.product.products,
+        cartTotal : cartTotal(state)
     }),
     
     /* ({cart})=> ({
@@ -38,5 +41,6 @@ export default connect(
     { fetchProducts, addProductToCart } // 사용해서 연결할 actions 
 )(ShoppingCart);
 
-//추가된 리스트 추가
-//같은 id는 quantity 증가 
+//카트 리스트 노출 ㅇ
+//카트 리스트에 카트 수량 노출 ㅇ
+//
