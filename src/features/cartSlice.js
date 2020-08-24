@@ -58,7 +58,6 @@ export const checkout = (cartItems) => dispatch => {
         )
     })
 }
-
 export const cartTotal = (state => {
     return state.cart.items.reduce((total, i) => {
         return total = total + (i.price * i.quantity)
