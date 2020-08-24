@@ -36,13 +36,15 @@ export const {pushProductToCart, incrementItemQuantity, emptyCart, setCheckoutSt
 
 //Action  - 성능이 들어가거나, api 요청이나, 추가적인 작업을 해야할때, 다수의 리듀서를 호출할때
 export const addProductToCart = (cartItems, productItem) => dispatch => {
-    const exist = cartItems.find(cart => cart.id === productItem.id)
-    if(!exist) {
-        dispatch(pushProductToCart(productItem))
-    } else {
-        dispatch(incrementItemQuantity(exist))
+    if(productItem.inventory > 0){
+        const exist = cartItems.find(cart => cart.id === productItem.id)
+        if(!exist) {
+            dispatch(pushProductToCart(productItem))
+        } else {
+            dispatch(incrementItemQuantity(exist))
+        }
+        dispatch(decrementProductInventory(productItem))
     }
-    dispatch(decrementProductInventory(productItem))
 }
 
 export const checkout = (cartItems) => dispatch => {
