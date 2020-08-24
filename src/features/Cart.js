@@ -10,7 +10,6 @@ class Cart extends Component {
         super(props);
 
         this.state = {
-
         }
     }
     render(){
@@ -20,7 +19,7 @@ class Cart extends Component {
                 <div>
                     {
                         this.props.cartItem.map(m => 
-                        <div class="cartItem" key={m.id}>
+                        <div className="cartItem" key={m.id}>
                             <span>{m.title}</span>
                             <span>{currency(m.price)}</span>
                             <span>{m.quantity}</span>
@@ -43,12 +42,10 @@ export default connect(
         checkoutStatus : state.cart.checkoutStatus
     }),
     
-    /* ({cart})=> ({
+    /* 
+    cart : cartSlice에서 사용한 name
+    ({cart})=> ({   
         cartItem : cart.items
     }), */
     { fetchProducts, addProductToCart, checkout } // 사용해서 연결할 actions 
 )(Cart);
-
-//카트 리스트 노출 ㅇ
-//카트 리스트에 카트 수량 노출 ㅇ
-//

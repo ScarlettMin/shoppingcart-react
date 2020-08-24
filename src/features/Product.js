@@ -18,7 +18,7 @@ class Product extends Component {
         this.setState({
             isLoading: true
         })
-        // reducer-action 을 호출.
+        // call reducer-action 
         this.props.fetchProducts()
         .then(()=>{
             this.setState({
@@ -42,22 +42,20 @@ class Product extends Component {
                             <span>{m.inventory} </span>
                             <button disabled={m.inventory < 1 ? true :false} onClick={()=>{this.props.addProductToCart(this.props.cartItem, m)}}>Add to Cart</button>
                         </div>)
+                        // 전체 카트 정보(this.props.cartItem)와 현재 상품정보(m)를 넘겨 주었다
                  }
+                 
                 </div>
             </div>
         )
     }
 }
 
+//redux and react Binding, 즉 가져와서 사용하겠다 
 export default connect(
-    (state)=> ({
-        cartItem : state.cart.items,
-        products : state.product.products
+    (state)=> ({ // = setState in React 
+        products : state.product.products,
+        cartItem : state.cart.items
     }),
     { fetchProducts, addProductToCart } // 사용해서 연결할 actions 
 )(Product);
-
-//리스트 
-//카트 추가 버튼 o
-//재고량 줄이기 o
-//

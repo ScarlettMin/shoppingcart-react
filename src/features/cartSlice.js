@@ -19,7 +19,7 @@ export const cartSlice = createSlice({
                 quantity : 1
             })
         },
-        incrementItemQuantity: (state, action) => { // reducer로 전달된 값인 action.payload는 수정할수 없다. 
+        incrementItemQuantity: (state, action) => { // reducer로 전달된 값인 action.payload는 수정할수 없다. 그래서 cart에서 다시 찾아서 수량 수정
             state.items.find(i => i.id === action.payload.id ).quantity++
         },
         setCheckoutStatus: (state, action)=>{
@@ -36,13 +36,16 @@ export const {pushProductToCart, incrementItemQuantity, emptyCart, setCheckoutSt
 
 //Action  - 성능이 들어가거나, api 요청이나, 추가적인 작업을 해야할때, 다수의 리듀서를 호출할때
 export const addProductToCart = (cartItems, productItem) => dispatch => {
-    const exist = cartItems.find(cart => cart.id === productItem.id)
-    if(!exist) {
-        dispatch(pushProductToCart(productItem))
-    } else {
-        dispatch(incrementItemQuantity(exist))
+    if(productItem.inventory > 0){
+        const exist = cartItems.find(cart => cart.id === productItem.id)
+        if(!exist) {
+            dispatch(pushProductToCart(productItem))
+        } else {
+            dispatch(incrementItemQuantity(exist))
+        }
+        dispatch(decrementProductInventory(productItem))
     }
-    dispatch(decrementProductInventory(productItem))
+    
 }
 
 export const checkout = (cartItems) => dispatch => {
@@ -64,5 +67,7 @@ export const cartTotal = (state => {
         return total = total + (i.price * i.quantity)
     }, 0)
 })
+
+
 
 export default cartSlice.reducer;
